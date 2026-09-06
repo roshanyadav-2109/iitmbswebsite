@@ -277,7 +277,7 @@ export function ChatRoom({
     <div className="desktop:fixed desktop:top-5 desktop:bottom-5 desktop:left-[440px] desktop:right-5 desktop:flex desktop:flex-col desktop:bg-white desktop:border desktop:border-hairline desktop:rounded-2xl desktop:overflow-hidden desktop:shadow-[0_4px_24px_rgba(0,0,0,0.06)]">
       <header className="fixed top-0 inset-x-0 z-40 bg-white border-b border-hairline desktop:static desktop:z-auto desktop:flex-shrink-0 desktop:border-b-hairline">
         <div className="mx-auto desktop:mx-0 max-w-md desktop:max-w-none h-14 px-3 flex items-center gap-2">
-          <Link href="/matches" aria-label="Back" className="p-2 -ml-2 text-ink active:scale-95 transition">
+          <Link href="/hooks" aria-label="Back" className="p-2 -ml-2 text-ink active:scale-95 transition">
             <ArrowLeft size={22} strokeWidth={2} />
           </Link>
           <Link

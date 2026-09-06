@@ -83,7 +83,7 @@ export function ProfileViewClient({ candidate }: { candidate: DetailCandidate })
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ toUserId: candidate.id })
     });
-    router.push("/matches");
+    router.push("/hooks");
   }
 
   const blocks = buildBlocks(candidate.photos, candidate.userPrompts);

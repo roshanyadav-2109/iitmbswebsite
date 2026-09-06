@@ -73,36 +73,6 @@ export default async function RandomPage() {
         interests={me.interests}
         displayName={me.displayName}
       >
-        {kept.length > 0 && (
-          <div className="pt-4 border-t border-hairline">
-            <p className="text-[11px] uppercase tracking-[0.16em] text-muted font-semibold mb-2">
-              Saved chats
-            </p>
-            <ul className="space-y-1">
-              {kept.map((k) => (
-                <li key={k.id}>
-                  <Link
-                    href={`/random/${k.id}`}
-                    className="flex items-center gap-3 py-2 -mx-2 px-2 rounded-xl hover:bg-tint transition"
-                  >
-                    <AnonAvatar name={k.name} size={30} />
-                    <span className="min-w-0 flex-1">
-                      <span className="block font-semibold text-sm truncate">{k.name}</span>
-                      <span className="block text-xs text-muted">
-                        {k.messageCount} {k.messageCount === 1 ? "message" : "messages"}
-                        {" · "}
-                        {new Date(k.startedAt).toLocaleDateString(undefined, {
-                          day: "numeric",
-                          month: "short"
-                        })}
-                      </span>
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
       </RandomConnect>
     </AppShell>
   );

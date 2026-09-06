@@ -57,7 +57,7 @@ export function ChatMenu({
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ toUserId: otherUserId })
     });
-    window.location.href = "/matches";
+    window.location.href = "/hooks";
   }
 
   return (

@@ -3,12 +3,14 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Shuffle, Compass, Bookmark, MessageSquareText, Quote, CircleUser, Download } from "lucide-react";
+import { Shuffle, Compass, MessageSquareText, Quote, CircleUser, Download } from "lucide-react";
 import { ChatListPanel } from "@/components/chat-list-panel";
 import { PushPermissionPrompt } from "@/components/push-permission-prompt";
 
-// Mobile: black bottom bar with six icon tabs (Random, Discover, Matches,
-// Chats, Spill, You). Random leads because it is the primary feature.
+// Mobile: black bottom bar with five icon tabs (Random, Discover, Chats,
+// Spill, You). Random leads because it is the primary feature. "Chats" is
+// /hooks, which holds matched people, requests and saved anonymous chats
+// in one list — there is no separate matches page any more.
 // md+: floating vertical pill on the left with four tabs (Chats is dropped
 // because lg+ shows a permanent chat list panel right next to the sidebar).
 // lg+: chat list panel renders alongside the sidebar — picking a chat opens
@@ -29,8 +31,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 const MOBILE_TABS = [
   { href: "/random",      label: "Random",   Icon: Shuffle },
   { href: "/discover",    label: "Discover", Icon: Compass },
-  { href: "/hooks",       label: "Matches",  Icon: Bookmark },
-  { href: "/matches",     label: "Chats",    Icon: MessageSquareText },
+  { href: "/hooks",       label: "Chats",    Icon: MessageSquareText },
   { href: "/confessions", label: "Spill",    Icon: Quote },
   { href: "/me",          label: "You",      Icon: CircleUser }
 ];
@@ -39,7 +40,7 @@ const MOBILE_TABS = [
 const DESKTOP_TABS = [
   { href: "/random",      label: "Random",   Icon: Shuffle },
   { href: "/discover",    label: "Discover", Icon: Compass },
-  { href: "/hooks",       label: "Matches",  Icon: Bookmark },
+  { href: "/hooks",       label: "Chats",    Icon: MessageSquareText },
   { href: "/confessions", label: "Spill",    Icon: Quote },
   { href: "/me",          label: "You",      Icon: CircleUser }
 ];
@@ -84,7 +85,7 @@ function SideNav() {
         }}
       >
         <div className="mx-auto max-w-md">
-          <ul className="grid grid-cols-6">
+          <ul className="grid grid-cols-5">
             {MOBILE_TABS.map((t) => {
               const active = path === t.href || path.startsWith(`${t.href}/`);
               const Icon = t.Icon;
