@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, Ban, Bookmark, CornerDownLeft, Eye, Shuffle, SkipForward, SlidersHorizontal } from "lucide-react";
+import { ArrowLeft, Ban, Bookmark, ChevronsRight, CornerDownLeft, Eye, Shuffle, SlidersHorizontal } from "lucide-react";
 import { supabaseBrowser } from "@/lib/supabase-browser";
 import { AnonAvatar } from "@/components/anon-avatar";
 import { BottomSheet } from "@/components/bottom-sheet";
@@ -276,7 +276,7 @@ export function RandomRoom({
             onClick={() => setBlockOpen(true)}
             aria-label="Block and report"
             title="Block and report"
-            className="p-2 -mr-2 active:scale-95 transition text-muted"
+            className="p-2 -mr-2 active:scale-95 transition text-ink"
           >
             <Ban size={20} />
           </button>
@@ -399,7 +399,7 @@ export function RandomRoom({
               title="Skip to someone new"
               className="shrink-0 w-11 h-11 rounded-full border border-hairline flex items-center justify-center text-muted hover:bg-tint transition active:scale-95"
             >
-              <SkipForward size={17} />
+              <ChevronsRight size={20} />
             </button>
 
             <div className="relative flex-1">

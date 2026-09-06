@@ -13,6 +13,17 @@ const POLL_MS = 2000;
 
 type Phase = "searching" | "stopped" | "error";
 
+// What the wait says. The point of the product is not "anonymous chat" as a
+// gimmick — it is having someone to talk to, so the lines say that plainly
+// and rotate so a long wait does not stare back with one sentence.
+const WAITING_LINES = [
+  "For when you want to talk to someone new.",
+  "Introvert, extrovert — everyone here starts as a stranger.",
+  "New here and nobody to talk to yet? That is the whole idea.",
+  "Someone you would never otherwise have met.",
+  "No names, no photos — just the conversation."
+];
+
 // Signing in lands you in the chat window itself — the search runs inside
 // it rather than on a screen you have to click through. The composer is
 // present but inert until someone is on the other end, so the room does not
@@ -39,6 +50,7 @@ export function RandomConnect({
   const [onlineCount, setOnlineCount] = useState<number | null>(null);
   const [sharedCount, setSharedCount] = useState<number | null>(null);
   const [elapsed, setElapsed] = useState(0);
+  const [lineIndex, setLineIndex] = useState(0);
   const [notifyState, setNotifyState] = useState<"idle" | "saving" | "done">("idle");
   const [sheetOpen, setSheetOpen] = useState(false);
   // Guards the poll loop against a late response landing after the user
@@ -124,6 +136,15 @@ export function RandomConnect({
     return () => clearInterval(t);
   }, [phase]);
 
+  useEffect(() => {
+    if (phase !== "searching") return;
+    const t = setInterval(
+      () => setLineIndex((i) => (i + 1) % WAITING_LINES.length),
+      4500
+    );
+    return () => clearInterval(t);
+  }, [phase]);
+
   // Not searching still shows how many people are around — GET, so reading
   // the number does not put us back in the queue.
   useEffect(() => {
@@ -205,10 +226,8 @@ export function RandomConnect({
           <>
             <Loader2 size={28} className="animate-spin" style={{ color: ACCENT }} />
             <p className="mt-4 text-[15px] font-semibold">Searching for someone to talk to…</p>
-            <p className="mt-1.5 text-sm text-muted">
-              {sharedCount
-                ? `${sharedCount} ${sharedCount === 1 ? "person shares" : "people share"} your interests.`
-                : "No names, no photos — just the conversation."}
+            <p className="mt-1.5 text-sm text-muted max-w-xs transition-opacity duration-300">
+              {WAITING_LINES[lineIndex]}
             </p>
 
             {elapsed > 25 && notifyState !== "done" && (
