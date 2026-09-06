@@ -13,15 +13,15 @@ const POLL_MS = 2000;
 
 type Phase = "searching" | "stopped" | "error";
 
-// What the wait says. The point of the product is not "anonymous chat" as a
-// gimmick — it is having someone to talk to, so the lines say that plainly
-// and rotate so a long wait does not stare back with one sentence.
+// What the wait says. Each line pairs what this is for — someone new to
+// talk to — with the promise that makes it safe to try: you are anonymous
+// until you choose not to be. They rotate so a long wait does not stare
+// back with one sentence.
 const WAITING_LINES = [
-  "For when you want to talk to someone new.",
-  "Introvert, extrovert — everyone here starts as a stranger.",
-  "New here and nobody to talk to yet? That is the whole idea.",
-  "Someone you would never otherwise have met.",
-  "No names, no photos — just the conversation."
+  "For when you want to talk to someone new. Your identity stays anonymous until you reveal it.",
+  "New here, or just nobody to talk to yet. Nobody sees who you are unless you choose to show them.",
+  "Introvert or extrovert — everyone starts as a stranger. You stay anonymous until you say otherwise.",
+  "Someone you would never otherwise have met. No name, no photo, until you both reveal."
 ];
 
 // Signing in lands you in the chat window itself — the search runs inside
