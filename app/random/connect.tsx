@@ -13,15 +13,17 @@ const POLL_MS = 2000;
 
 type Phase = "searching" | "stopped" | "error";
 
-// What the wait says. Each line pairs what this is for — someone new to
-// talk to — with the promise that makes it safe to try: you are anonymous
-// until you choose not to be. They rotate so a long wait does not stare
-// back with one sentence.
-const WAITING_LINES = [
-  "For when you want to talk to someone new. Your identity stays anonymous until you reveal it.",
-  "New here, or just nobody to talk to yet. Nobody sees who you are unless you choose to show them.",
-  "Introvert or extrovert — everyone starts as a stranger. You stay anonymous until you say otherwise.",
-  "Someone you would never otherwise have met. No name, no photo, until you both reveal."
+// What the wait says. Short, one mood each, and they rotate — a
+// paragraph of reassurance is not what anyone reads while waiting. The
+// emoji swaps with the line so the screen visibly moves even when the
+// pool is quiet.
+const WAITING_LINES: { emoji: string; text: string }[] = [
+  { emoji: "👋", text: "Say hi to someone new" },
+  { emoji: "🙈", text: "Anonymous until you reveal" },
+  { emoji: "🌙", text: "Awake, no one to text" },
+  { emoji: "🎧", text: "Quiet company, no pressure" },
+  { emoji: "✨", text: "New here? Start with a stranger" },
+  { emoji: "💬", text: "Just talk — no profiles" }
 ];
 
 // Signing in lands you in the chat window itself — the search runs inside
@@ -140,7 +142,7 @@ export function RandomConnect({
     if (phase !== "searching") return;
     const t = setInterval(
       () => setLineIndex((i) => (i + 1) % WAITING_LINES.length),
-      4500
+      2800
     );
     return () => clearInterval(t);
   }, [phase]);
@@ -226,8 +228,12 @@ export function RandomConnect({
           <>
             <Loader2 size={28} className="animate-spin" style={{ color: ACCENT }} />
             <p className="mt-4 text-[15px] font-semibold">Searching for someone to talk to…</p>
-            <p className="mt-1.5 text-sm text-muted max-w-xs transition-opacity duration-300">
-              {WAITING_LINES[lineIndex]}
+            <p
+              key={lineIndex}
+              className="mt-1.5 text-sm text-muted flex items-center gap-2 animate-[fadeIn_300ms_ease-out]"
+            >
+              <span className="text-base leading-none">{WAITING_LINES[lineIndex].emoji}</span>
+              {WAITING_LINES[lineIndex].text}
             </p>
 
             {elapsed > 25 && notifyState !== "done" && (
