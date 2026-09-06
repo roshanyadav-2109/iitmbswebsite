@@ -186,7 +186,7 @@ export function RandomConnect({
   const searching = phase === "searching";
 
   return (
-    <div className="flex flex-col min-h-[calc(100vh-6rem)]">
+    <div className="flex flex-col h-full min-h-0">
       {/* Header, same shape the room uses so the window does not jump when
           a match lands. */}
       <header className="sticky top-0 z-30 bg-white/95 backdrop-blur">

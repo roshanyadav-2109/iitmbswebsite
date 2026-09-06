@@ -2,6 +2,7 @@ import { notFound, redirect } from "next/navigation";
 import { getSessionUser } from "@/lib/session";
 import { supabaseAdmin } from "@/lib/supabase-server";
 import { describeSession, loadSessionFor } from "@/lib/random";
+import { AppShell } from "@/components/app-shell";
 import { RandomRoom } from "./room";
 
 export const dynamic = "force-dynamic";
@@ -35,14 +36,16 @@ export default async function RandomRoomPage({ params }: { params: { id: string 
   }
 
   return (
-    <RandomRoom
-      session={await describeSession(found.session, found.side)}
-      side={found.side}
-      initialMessages={initialMessages}
-      interests={me.interests}
-      prefGender={me.randomPrefGender}
-      prefWorkspace={me.randomPrefWorkspace}
-      displayName={me.displayName}
-    />
+    <AppShell>
+      <RandomRoom
+        session={await describeSession(found.session, found.side)}
+        side={found.side}
+        initialMessages={initialMessages}
+        interests={me.interests}
+        prefGender={me.randomPrefGender}
+        prefWorkspace={me.randomPrefWorkspace}
+        displayName={me.displayName}
+      />
+    </AppShell>
   );
 }

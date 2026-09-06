@@ -17,8 +17,12 @@ import { PushPermissionPrompt } from "@/components/push-permission-prompt";
 // it in the main area.
 export function AppShell({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen bg-white flex flex-col">
-      <main className="flex-1 mx-auto w-full max-w-md pb-24 desktop:pb-6 desktop:mx-0 desktop:ml-[440px]">
+    // The shell is the window, not a document: it never scrolls itself, and
+    // the content area is the only thing that does. Without this the page
+    // grows past the viewport and the composer at the bottom of a screen
+    // ends up somewhere you have to scroll to reach.
+    <div className="min-h-screen h-[100dvh] bg-white flex flex-col overflow-hidden">
+      <main className="flex-1 min-h-0 overflow-y-auto mx-auto w-full max-w-md desktop:mx-0 desktop:ml-[440px]">
         {children}
       </main>
       <SideNav />
@@ -73,12 +77,10 @@ function SideNav() {
 
   return (
     <>
-      {/* Mobile bottom bar — shown on every touch device (and any non-fine
-          pointer), regardless of viewport width. Hidden inside a chat. */}
+      {/* Mobile bottom bar. A flex child rather than a fixed overlay, so the
+          content above it can never scroll underneath. Hidden inside a chat. */}
       <nav
-        className={
-          "fixed bottom-0 inset-x-0 z-30 " + (hideBottomNav ? "hidden" : "desktop:hidden")
-        }
+        className={"shrink-0 z-30 " + (hideBottomNav ? "hidden" : "desktop:hidden")}
         style={{
           background: "#0a0a0a",
           paddingBottom: "env(safe-area-inset-bottom)"

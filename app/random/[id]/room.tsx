@@ -250,7 +250,9 @@ export function RandomRoom({
   }
 
   return (
-    <div className="min-h-screen bg-white flex flex-col">
+    // Fills the shell, which owns the window height and column width. The
+    // transcript is the only thing that scrolls; the composer stays put.
+    <div className="h-full min-h-0 bg-white flex flex-col overflow-hidden">
       {/* Header */}
       <header className="sticky top-0 z-40 bg-white/95 backdrop-blur">
         <div className="h-14 px-4 flex items-center gap-3">
